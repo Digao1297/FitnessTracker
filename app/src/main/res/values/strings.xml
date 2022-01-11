@@ -21,4 +21,6 @@
 
     <string name="imc_response">Imc: %1$.2f</string>
     <string name="label_tmb">TMB</string>
+    <string name="save">Salvar</string>
+    <string name="saved">Registro salvo com sucesso!</string>
 </resources>

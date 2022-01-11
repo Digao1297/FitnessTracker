@@ -31,34 +31,49 @@ public class ImcActivity extends AppCompatActivity {
 
         Button btnSend = findViewById(R.id.btn_imc_send);
 
-        btnSend.setOnClickListener((view)-> {
+        btnSend.setOnClickListener((view) -> {
 
-                if (!_validate()) {
-                    Toast.makeText(ImcActivity.this, R.string.fields_message, Toast.LENGTH_LONG).show();
-                    return;
-                }
+            if (!_validate()) {
+                Toast.makeText(ImcActivity.this, R.string.fields_message, Toast.LENGTH_LONG).show();
+                return;
+            }
 
-                String sHeight = editHeight.getText().toString();
-                String sWeight = editWeight.getText().toString();
+            String sHeight = editHeight.getText().toString();
+            String sWeight = editWeight.getText().toString();
 
-                int height = Integer.parseInt(sHeight);
-                int weight = Integer.parseInt(sWeight);
+            int height = Integer.parseInt(sHeight);
+            int weight = Integer.parseInt(sWeight);
 
-                double result = _calculateImc(height, weight);
+            double result = _calculateImc(height, weight);
 
-                int imcResponseId = _imcRespose(result);
+            int imcResponseId = _imcRespose(result);
 
-                AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
-                        .setTitle(getString(R.string.imc_response, result))
-                        .setMessage(imcResponseId)
-                        .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {})
-                        .create();
+            AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
+                    .setTitle(getString(R.string.imc_response, result))
+                    .setMessage(imcResponseId)
+                    .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
+                    })
+                    .setNegativeButton(R.string.save, (dialogInterface, which) -> {
 
-                dialog.show();
+                        new Thread(() ->{
+                            long calcId = SqlHelper.getInstance(ImcActivity.this).addItem("imc", result);
 
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(editWeight.getWindowToken(),0);
-                imm.hideSoftInputFromWindow(editHeight.getWindowToken(),0);
+                            runOnUiThread(() -> {
+                                if (calcId > 0) {
+                                    editWeight.setText("");
+                                    editHeight.setText("");
+                                    Toast.makeText(ImcActivity.this, R.string.saved, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }).start();
+                    })
+                    .create();
+
+            dialog.show();
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editWeight.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(editHeight.getWindowToken(), 0);
 
         });
     }
