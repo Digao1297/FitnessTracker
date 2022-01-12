@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,7 +56,7 @@ public class ImcActivity extends AppCompatActivity {
                     })
                     .setNegativeButton(R.string.save, (dialogInterface, which) -> {
 
-                        new Thread(() ->{
+                        new Thread(() -> {
                             long calcId = SqlHelper.getInstance(ImcActivity.this).addItem("imc", result);
 
                             runOnUiThread(() -> {
@@ -63,6 +64,10 @@ public class ImcActivity extends AppCompatActivity {
                                     editWeight.setText("");
                                     editHeight.setText("");
                                     Toast.makeText(ImcActivity.this, R.string.saved, Toast.LENGTH_SHORT).show();
+
+                                    Intent intent = new Intent(ImcActivity.this, ListCalcActivity.class);
+                                    intent.putExtra("type","imc");
+                                    startActivity(intent);
                                 }
                             });
                         }).start();
