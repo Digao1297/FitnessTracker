@@ -137,8 +137,8 @@ public class ImcActivity extends AppCompatActivity {
     private boolean _validate() {
         return (!editHeight.getText().toString().startsWith("0") &&
                 !editWeight.getText().toString().startsWith("0") &&
-                !editHeight.toString().isEmpty() &&
-                !editWeight.toString().isEmpty()
+                !editHeight.getText().toString().isEmpty() &&
+                !editWeight.getText().toString().isEmpty()
         );
     }
 }
