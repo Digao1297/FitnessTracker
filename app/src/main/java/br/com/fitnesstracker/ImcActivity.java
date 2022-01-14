@@ -1,5 +1,6 @@
 package br.com.fitnesstracker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -64,10 +67,7 @@ public class ImcActivity extends AppCompatActivity {
                                     editWeight.setText("");
                                     editHeight.setText("");
                                     Toast.makeText(ImcActivity.this, R.string.saved, Toast.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent(ImcActivity.this, ListCalcActivity.class);
-                                    intent.putExtra("type","imc");
-                                    startActivity(intent);
+                                    _openListCalcActivity();
                                 }
                             });
                         }).start();
@@ -81,6 +81,32 @@ public class ImcActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(editHeight.getWindowToken(), 0);
 
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_list:
+                _openListCalcActivity();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void _openListCalcActivity() {
+        Intent intent = new Intent(ImcActivity.this, ListCalcActivity.class);
+        intent.putExtra("type", "imc");
+        startActivity(intent);
     }
 
     @StringRes
