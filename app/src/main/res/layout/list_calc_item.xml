@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,15 +17,13 @@
 
         <TextView
             android:id="@+id/list_calc_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="225dp"
+            android:layout_height="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:gravity="center"
-            android:text="@string/imc_severely_low_weight"
-            android:textSize="16dp"
-            android:textStyle="bold"
+            android:gravity="start"
+            android:text="@string/imc_response"
+            android:textSize="24dp"
             app:layout_constraintEnd_toStartOf="@+id/list_calc_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +32,6 @@
             android:id="@+id/list_calc_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="23/12/3333"

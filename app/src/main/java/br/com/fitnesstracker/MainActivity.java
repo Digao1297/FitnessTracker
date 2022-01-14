@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 R.string.label_tmb,
                 new Intent(MainActivity.this, TmbActivity.class)));
 
-
         // definir o comportamento de exibição do layout da recycleView
         // mosaic
         // grid
